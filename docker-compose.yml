@@ -1,0 +1,14 @@
+version: "3"
+services:
+  training_db:
+    image: microsoft/mssql-server-linux:2017-latest
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: "C0t3cnaTraining"
+      ACCEPT_EULA: "Y"
+    volumes:
+      - training_db_data:/var/opt/mssql/data
+
+volumes:
+  training_db_data:
