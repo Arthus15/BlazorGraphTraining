@@ -35,6 +35,8 @@ namespace GraphApi
 
             InitializeDatabase(trainingContext);
 
+            app.UseGraphiQLServer();
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
