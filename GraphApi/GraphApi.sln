@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30310.162
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphApi", "GraphApi\GraphApi.csproj", "{95540043-F12E-4C7B-9A6D-E2398B27A6D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraphApi", "GraphApi\GraphApi.csproj", "{95540043-F12E-4C7B-9A6D-E2398B27A6D3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Application", "1. Application", "{4177C621-51AF-426B-BEAF-CB6777FDF98C}"
 EndProject
@@ -11,9 +11,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Core", "2. Core", "{EAB6
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Infraestructure", "3. Infraestructure", "{E763BA1F-E5CB-4F9F-813D-1970E18C5BA7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphApi.Core", "GraphApi.Core\GraphApi.Core.csproj", "{0C575057-6F5C-4C4C-96A7-EEDE33BE803F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraphApi.Core", "GraphApi.Core\GraphApi.Core.csproj", "{0C575057-6F5C-4C4C-96A7-EEDE33BE803F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphApi.Infraestructure", "GraphApi.Infraestructure\GraphApi.Infraestructure.csproj", "{69102088-5AFB-4920-AF5A-A04680A0FB3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraphApi.Infraestructure", "GraphApi.Infraestructure\GraphApi.Infraestructure.csproj", "{69102088-5AFB-4920-AF5A-A04680A0FB3B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphApi.GraphQLMiddleWare", "GraphApi.GraphQLMiddleWare\GraphApi.GraphQLMiddleWare.csproj", "{CC212A26-B78D-4A7D-B366-BA4F67E5260E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{69102088-5AFB-4920-AF5A-A04680A0FB3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69102088-5AFB-4920-AF5A-A04680A0FB3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69102088-5AFB-4920-AF5A-A04680A0FB3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC212A26-B78D-4A7D-B366-BA4F67E5260E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC212A26-B78D-4A7D-B366-BA4F67E5260E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC212A26-B78D-4A7D-B366-BA4F67E5260E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC212A26-B78D-4A7D-B366-BA4F67E5260E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,6 +47,7 @@ Global
 		{95540043-F12E-4C7B-9A6D-E2398B27A6D3} = {4177C621-51AF-426B-BEAF-CB6777FDF98C}
 		{0C575057-6F5C-4C4C-96A7-EEDE33BE803F} = {EAB6DE20-EBDC-42FC-8886-3FD79263F43D}
 		{69102088-5AFB-4920-AF5A-A04680A0FB3B} = {E763BA1F-E5CB-4F9F-813D-1970E18C5BA7}
+		{CC212A26-B78D-4A7D-B366-BA4F67E5260E} = {E763BA1F-E5CB-4F9F-813D-1970E18C5BA7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7E182FF2-61AE-4366-AB72-8CE5CA05F207}

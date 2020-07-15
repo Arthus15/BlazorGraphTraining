@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="GraphQL" Version="3.0.0-preview-1648" />
+    <PackageReference Include="GraphQL.NewtonsoftJson" Version="3.0.0-preview-1648" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GraphApi.Infraestructure\GraphApi.Infraestructure.csproj" />
+  </ItemGroup>
+
+</Project>

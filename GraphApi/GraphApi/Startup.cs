@@ -1,3 +1,6 @@
+using GraphApi.GraphQLMiddleWare;
+using GraphApi.GraphQLMiddleWare.Queries;
+using GraphApi.GraphQLMiddleWare.Types;
 using GraphApi.Infraestructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -22,6 +25,7 @@ namespace GraphApi
         {
             services.AddControllers();
             services.AddDbContext<TrainingContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("TrainingDb")));
+            InjectGraphQLDependencies(services);
 
         }
 
@@ -56,6 +60,15 @@ namespace GraphApi
             {
                 trainingContext.Database.Migrate();
             }
+        }
+
+        private void InjectGraphQLDependencies(IServiceCollection services)
+        {
+            services.AddScoped<ContractType>();
+            services.AddScoped<OperationType>();
+            services.AddScoped<InspectionType>();
+            services.AddScoped<GraphQLQuery>();
+            services.AddScoped<ContractQuery>();
         }
         #endregion
     }

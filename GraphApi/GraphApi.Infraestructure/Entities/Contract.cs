@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GraphQL.Types;
+using System;
 using System.Collections.ObjectModel;
 
 namespace GraphApi.Infraestructure.Entities
@@ -10,5 +11,5 @@ namespace GraphApi.Infraestructure.Entities
         public string ContractType { get; set; }
         public virtual Collection<Operation> Operations { get; set; }
 
-    }
+    }    
 }
