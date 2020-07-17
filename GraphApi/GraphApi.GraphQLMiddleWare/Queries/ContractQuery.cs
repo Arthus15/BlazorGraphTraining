@@ -1,6 +1,10 @@
 ﻿using GraphApi.GraphQLMiddleWare.Types;
 using GraphApi.Infraestructure;
+using GraphQL;
 using GraphQL.Types;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
 
 namespace GraphApi.GraphQLMiddleWare.Queries
 {
@@ -12,8 +16,19 @@ namespace GraphApi.GraphQLMiddleWare.Queries
             "Contracts",
             resolve: context =>
             {
-                var contracts = db.Contracts;
+                var contracts = db.Contracts.Include(x => x.Operations).ThenInclude(x => x.Inspections);
                 return contracts;
+            });
+
+            Field<ContractType>(
+            "Contract",
+            arguments: new QueryArguments(
+                new QueryArgument<IdGraphType> { Name = "Id", Description = "The Id of the Contract." }),
+            resolve: context =>
+            {
+                var id = context.GetArgument<Guid>("Id");
+                var contract = db.Contracts.Include(x => x.Operations).ThenInclude(x => x.Inspections).FirstOrDefault(x => x.Id == id);
+                return contract;
             });
         }
     }
