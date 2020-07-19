@@ -13,5 +13,9 @@ else
     echo "[network.sh] Network $STACK_NETWORK yet created"
 fi
 
+cp GraphApi/GraphApi/Dockerfile ./Dockerfile
+docker build -t training_graph_api .
+rm ./Dockerfile
+
 echo "Deploying"
 docker stack deploy -c ${LOCAL_DIR}/docker-compose.yml training

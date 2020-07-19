@@ -11,6 +11,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
+using System.Net;
 
 namespace GraphApi
 {
@@ -27,7 +29,7 @@ namespace GraphApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddDbContext<TrainingContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("TrainingDb")));
+            services.AddDbContext<TrainingContext>(opt => opt.UseSqlServer(BuildConnection()));
             InjectGraphQLDependencies(services);
             InjectRepositories(services);
 
@@ -96,6 +98,20 @@ namespace GraphApi
             services.AddScoped<IContractRepository, ContractRepository>();
             services.AddScoped<IOperationRepository, OperationRepository>();
             services.AddScoped<IInspectionRepository, InspectionRepository>();
+        }
+
+        private string BuildConnection()
+        {
+            var connection = Configuration.GetConnectionString("TrainingDb");
+            try
+            {
+                var dnHostAddress = Dns.GetHostAddresses(new Uri("http://docker.for.win.localhost").Host)[0].ToString();
+                return string.Format(connection, dnHostAddress);
+            }
+            catch (Exception ex)
+            {
+                return string.Format(connection, "localhost");
+            }
         }
         #endregion
     }

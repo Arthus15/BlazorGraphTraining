@@ -7,14 +7,14 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
 WORKDIR /src
-COPY ["GraphApi/GraphApi.csproj", "GraphApi/"]
-RUN dotnet restore "GraphApi/GraphApi.csproj"
+COPY ["GraphApi/", "GraphApi/"]
+RUN dotnet restore "GraphApi/GraphApi/GraphApi.csproj"
 COPY . .
 WORKDIR "/src/GraphApi"
-RUN dotnet build "GraphApi.csproj" -c Release -o /app/build
+RUN dotnet build "GraphApi/GraphApi.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "GraphApi.csproj" -c Release -o /app/publish
+RUN dotnet publish "GraphApi/GraphApi.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app

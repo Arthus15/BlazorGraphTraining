@@ -1,5 +1,17 @@
-version: "3"
+version: "3.8"
 services:
+  training_graph_api:
+    image: training_graph_api
+    ports:
+      - "5555:80"
+    depends_on:
+      - "training_db"
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 20s
+        max_attempts: 5
+        window: 10s
   training_db:
     image: microsoft/mssql-server-linux:2017-latest
     ports:
