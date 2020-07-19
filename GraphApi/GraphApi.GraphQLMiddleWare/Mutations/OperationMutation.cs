@@ -13,11 +13,11 @@ namespace GraphApi.GraphQLMiddleWare.Mutations
             Field<OperationType>(
             "CreateOperation",
             arguments: new QueryArguments(
-                new QueryArgument<NonNullGraphType<OperationInputType>> { Name = "InputInspection", Description = "New operation to be added" }),
+                new QueryArgument<NonNullGraphType<OperationInputType>> { Name = "newOperation", Description = "New operation to be added" }),
             resolve: context =>
             {
-                var contract = context.GetArgument<Operation>("inputInspection");
-                return operationRepository.Create(contract);
+                var operation = context.GetArgument<Operation>("newOperation");
+                return operationRepository.Create(operation);
             });
         }
     }

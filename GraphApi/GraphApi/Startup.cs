@@ -31,6 +31,9 @@ namespace GraphApi
             InjectGraphQLDependencies(services);
             InjectRepositories(services);
 
+            // Register the Swagger generator, defining 1 or more Swagger documents
+            services.AddSwaggerGen();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,6 +46,8 @@ namespace GraphApi
 
             InitializeDatabase(trainingContext);
 
+            app.UseSwagger();
+
             app.UseGraphiQLServer();
 
             app.UseHttpsRedirection();
@@ -50,6 +55,12 @@ namespace GraphApi
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "GraphQL API V1");
+                c.RoutePrefix = string.Empty;
+            });
 
             app.UseEndpoints(endpoints =>
             {
