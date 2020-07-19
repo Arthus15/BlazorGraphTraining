@@ -1,7 +1,7 @@
 # BlazorGraphTraining
 Company training for GraphQL and Blazor.
 
-There is no production propose for this proyect. It's a learning project using the last technologies, so multiple mistakes can be commited by the author (me).
+There is no production propose for this project. It's a learning project using the last technologies, so multiple mistakes can be commited by the author (me).
 
 # How to run it?
 You need to have installed docker and docker swarm because this proyect is deployed using services. Once is installed, execute the 'deploy.sh' script.
