@@ -1,4 +1,5 @@
 using GraphApi.GraphQLMiddleWare;
+using GraphApi.GraphQLMiddleWare.Mutations;
 using GraphApi.GraphQLMiddleWare.Queries;
 using GraphApi.GraphQLMiddleWare.Types;
 using GraphApi.Infraestructure;
@@ -72,6 +73,11 @@ namespace GraphApi
             services.AddScoped<InspectionType>();
             services.AddScoped<GraphQLQuery>();
             services.AddScoped<ContractQuery>();
+            services.AddScoped<ContractMutation>();
+            services.AddScoped<InspectionQuery>();
+            services.AddScoped<InspectionMutation>();
+            services.AddScoped<OperationQuery>();
+            services.AddScoped<OperationMutation>();
         }
 
         private void InjectRepositories(IServiceCollection services)

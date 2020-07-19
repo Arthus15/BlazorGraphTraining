@@ -13,10 +13,10 @@ namespace GraphApi.GraphQLMiddleWare.Mutations
             Field<ContractType>(
             "CreateContract",
             arguments: new QueryArguments(
-                new QueryArgument<NonNullGraphType<ContractType>> { Name = "Contract", Description = "New contract to be added" }),
+                new QueryArgument<NonNullGraphType<ContractInputType>> { Name = "newContract", Description = "New contract to be added" }),
             resolve: context =>
             {
-                var contract = context.GetArgument<Contract>("Contract");
+                var contract = context.GetArgument<Contract>("newContract");
                 return contractRepository.Create(contract);
             });
         }
