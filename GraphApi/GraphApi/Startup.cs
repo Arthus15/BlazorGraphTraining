@@ -1,7 +1,10 @@
 using GraphApi.GraphQLMiddleWare;
+using GraphApi.GraphQLMiddleWare.Mutations;
 using GraphApi.GraphQLMiddleWare.Queries;
 using GraphApi.GraphQLMiddleWare.Types;
 using GraphApi.Infraestructure;
+using GraphApi.Infraestructure.IRepositories;
+using GraphApi.Infraestructure.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +29,7 @@ namespace GraphApi
             services.AddControllers();
             services.AddDbContext<TrainingContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("TrainingDb")));
             InjectGraphQLDependencies(services);
+            InjectRepositories(services);
 
         }
 
@@ -69,6 +73,18 @@ namespace GraphApi
             services.AddScoped<InspectionType>();
             services.AddScoped<GraphQLQuery>();
             services.AddScoped<ContractQuery>();
+            services.AddScoped<ContractMutation>();
+            services.AddScoped<InspectionQuery>();
+            services.AddScoped<InspectionMutation>();
+            services.AddScoped<OperationQuery>();
+            services.AddScoped<OperationMutation>();
+        }
+
+        private void InjectRepositories(IServiceCollection services)
+        {
+            services.AddScoped<IContractRepository, ContractRepository>();
+            services.AddScoped<IOperationRepository, OperationRepository>();
+            services.AddScoped<IInspectionRepository, InspectionRepository>();
         }
         #endregion
     }

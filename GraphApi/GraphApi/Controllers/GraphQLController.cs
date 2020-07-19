@@ -1,11 +1,13 @@
 ﻿using GraphApi.GraphQLMiddleWare;
+using GraphApi.GraphQLMiddleWare.Mutations;
 using GraphApi.GraphQLMiddleWare.Queries;
-using GraphApi.Infraestructure;
 using GraphQL;
 using GraphQL.NewtonsoftJson;
 using GraphQL.SystemTextJson;
 using GraphQL.Types;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Threading.Tasks;
 
 namespace GraphApi.Controllers
@@ -14,11 +16,10 @@ namespace GraphApi.Controllers
     [ApiController]
     public class GraphQLController : ControllerBase
     {
-        private readonly TrainingContext _trainingContext;
-
-        public GraphQLController(TrainingContext trainingContext)
+        private readonly IServiceProvider _serviceProvider;
+        public GraphQLController(IServiceProvider serviceProvider)
         {
-            _trainingContext = trainingContext;
+            _serviceProvider = serviceProvider;
         }
 
         // POST api/<GraphQLController>
@@ -29,7 +30,8 @@ namespace GraphApi.Controllers
 
             var schema = new Schema
             {
-                Query = new ContractQuery(_trainingContext)
+                Query = _serviceProvider.GetService<ContractQuery>(),
+                Mutation = _serviceProvider.GetService<ContractMutation>()
             };
 
             var result = await new DocumentExecuter().ExecuteAsync(_ =>
