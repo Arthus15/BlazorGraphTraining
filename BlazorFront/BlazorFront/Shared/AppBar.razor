@@ -1,0 +1,31 @@
+﻿<MatAppBarContainer Style="width: 100%">
+    <MatAppBar Fixed="true">
+        <MatAppBarRow>
+            <MatAppBarSection>
+                <MatIconButton OnClick="@((e) => OpenMenu())" Icon="menu"></MatIconButton>
+                <MatAppBarTitle>Blazor&Graph Training</MatAppBarTitle>
+            </MatAppBarSection>
+            <MatAppBarSection Align="@MatAppBarSectionAlign.End">
+                <MatIconButton Icon="favorite"></MatIconButton>
+            </MatAppBarSection>
+        </MatAppBarRow>
+    </MatAppBar>
+
+    <MatAppBarContent Style="display: flex; flex-direction: column; align-items: center;">
+        @ChildContent
+    </MatAppBarContent>    
+</MatAppBarContainer>
+
+<NavMenu @bind-Opened="MenuVisible" />
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    public bool MenuVisible = false;
+
+    private void OpenMenu()
+    {
+        MenuVisible = true;
+    }
+}
