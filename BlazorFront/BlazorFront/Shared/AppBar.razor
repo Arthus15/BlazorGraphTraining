@@ -1,4 +1,7 @@
-﻿<MatAppBarContainer Style="width: 100%">
+﻿@using Services
+@inject BackProxyService backProxyService
+
+<MatAppBarContainer Style="width: 100%">
     <MatAppBar Fixed="true">
         <MatAppBarRow>
             <MatAppBarSection>
@@ -13,19 +16,27 @@
 
     <MatAppBarContent Style="display: flex; flex-direction: column; align-items: center;">
         @ChildContent
-    </MatAppBarContent>    
+    </MatAppBarContent>
 </MatAppBarContainer>
 
 <NavMenu @bind-Opened="MenuVisible" />
 
 @code {
+
     [Parameter]
     public RenderFragment ChildContent { get; set; }
 
     public bool MenuVisible = false;
 
+    protected override async Task OnInitializedAsync()
+    {
+        await backProxyService.GetContractsAsync();
+    }
+
     private void OpenMenu()
     {
         MenuVisible = true;
+
+
     }
 }

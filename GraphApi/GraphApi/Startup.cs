@@ -36,6 +36,9 @@ namespace GraphApi
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen();
 
+            //Add Cors
+            services.AddCors(options => options.AddPolicy("AllowAllDEV", p => p.WithOrigins("https://localhost:44349").AllowCredentials().AllowAnyMethod().AllowAnyHeader()));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,6 +48,8 @@ namespace GraphApi
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors("AllowAllDEV");
 
             InitializeDatabase(trainingContext);
 
