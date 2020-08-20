@@ -1,0 +1,12 @@
+﻿@using Services
+@inject BackProxyService _backProxyService
+
+<h3>ContractsPage</h3>
+
+@code {
+
+    protected override async Task OnInitializedAsync()
+    {
+        await _backProxyService.GetContractsAsync();
+    }
+}

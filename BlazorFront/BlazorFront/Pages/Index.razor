@@ -1,7 +1,45 @@
 ﻿@page "/"
 
-<h1>Hello, world!</h1>
+<MatTabGroup Style="width: 100%">
+    @foreach (var tab in tabs)
+    {
+        <MatTab>
+            <LabelContent>
+                @tab.Label
+            </LabelContent>
+            <ChildContent>
+                @tab.Content
+            </ChildContent>
+        </MatTab>
+    }
+</MatTabGroup>
 
-Welcome to your new app.
+@code
+        {
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+    List<TabItem> tabs = new List<TabItem>()
+{
+                new TabItem()
+                {
+                    Label = "Contracts",
+                    Content = @<ContractsPage />
+                },
+                new TabItem()
+                {
+                    Label = "Operations",
+                    Content = @<div>Content 2</div>
+                },
+                new TabItem()
+                {
+                    Label = "Inspections",
+                    Content = @<div>Content 3</div>
+                }
+            };
+
+        class TabItem
+        {
+            public string Label { get; set; }
+            public RenderFragment Content { get; set; }
+        }
+
+}
