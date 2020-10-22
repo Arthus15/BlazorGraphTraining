@@ -1,12 +1,28 @@
 ﻿@using Services
 @inject BackProxyService _backProxyService
 
-<h3>ContractsPage</h3>
+<MatTable Items="@contracts" class="mat-elevation-z5">
+    <MatTableHeader>
+        <th>Id</th>
+        <th>Name</th>
+        <th>ContractType</th>
+    </MatTableHeader>
+    <MatTableRow>
+        <td>@context.Id</td>
+        <td>@context.Name</td>
+        <td>@context.ContractType</td>
+    </MatTableRow>
+</MatTable>
 
 @code {
 
+    public List<BlazorFront.Models.Contract> contracts;
+
     protected override async Task OnInitializedAsync()
     {
-        await _backProxyService.GetContractsAsync();
+#if DEBUG
+        await Task.Delay(10000);
+#endif
+        contracts = await _backProxyService.GetContractsAsync();
     }
 }

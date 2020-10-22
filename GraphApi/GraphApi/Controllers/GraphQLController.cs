@@ -6,6 +6,7 @@ using GraphQL.NewtonsoftJson;
 using GraphQL.SystemTextJson;
 using GraphQL.Types;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Threading.Tasks;
 
@@ -49,7 +50,7 @@ namespace GraphApi.Controllers
                 return BadRequest(result.Errors);
             }
 
-            return Ok(result.Data);
+            return Ok(JsonConvert.SerializeObject(result.Data));
         }
 
         #region Private Methods
