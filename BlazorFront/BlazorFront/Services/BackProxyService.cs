@@ -1,9 +1,9 @@
 ﻿using BlazorFront.Models;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,32 +21,19 @@ namespace BlazorFront.Services
 
         public async Task<List<Contract>> GetContractsAsync()
         {
-            var body = JsonConvert.SerializeObject(Queries.Queries.ContractQuery);
+            var body = JsonConvert.SerializeObject(Queries.Queries.ContractsQuery);
             var httpContent = new StringContent(body, Encoding.UTF8, "application/json");
 
             var response = await _graphQLHttpClient.PostAsync(GraphUri, httpContent);
 
             if (!response.IsSuccessStatusCode)
-                throw new Exception(await response.Content.ReadAsStringAsync());
+                throw new Exception(response.Content.ReadAsStringAsync().Result);
 
-            var responseContent = response.Content;
+            var data = response.Content.ReadAsStringAsync().Result;
+            var dataJObject = JObject.Parse(data).GetValue("contracts");
+            var contracts = JsonConvert.DeserializeObject<List<Contract>>(dataJObject.ToString());
 
-            if(responseContent != null)
-            {
-                try
-                {
-                    string data = "";
-                    data = await responseContent.ReadAsStringAsync();
-                }
-                catch(Exception ex)
-                {
-
-                }
-                
-            }
-
-
-            return null;
+            return contracts;
         }
     }
 }

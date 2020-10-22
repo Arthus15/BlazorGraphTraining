@@ -50,7 +50,7 @@ namespace GraphApi.Controllers
                 return BadRequest(result.Errors);
             }
 
-            return Ok(JsonConvert.SerializeObject(result.Data));
+            return Ok(result.Data);
         }
 
         #region Private Methods

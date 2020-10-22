@@ -37,7 +37,7 @@ namespace GraphApi
             services.AddSwaggerGen();
 
             //Add Cors
-            services.AddCors(options => options.AddPolicy("AllowAllDEV", p => p.WithOrigins("https://localhost:44349").AllowCredentials().AllowAnyMethod().AllowAnyHeader()));
+            services.AddCors(options => options.AddPolicy("AllowAllDEV", p => p.WithOrigins("https://localhost:44349", "https://localhost:5001").AllowCredentials().AllowAnyMethod().AllowAnyHeader()));
 
         }
 
