@@ -1,4 +1,5 @@
 ﻿using BlazorFront.Models;
+using BlazorFront.Mutations;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -34,6 +35,21 @@ namespace BlazorFront.Services
             var contracts = JsonConvert.DeserializeObject<List<Contract>>(dataJObject.ToString());
 
             return contracts;
+        }
+
+        public async Task CreateContractAsync(string contractName, string contractType)
+        {
+            var mutation = string.Format(Mutations.Mutations.CREATE_CONTRACT, contractName, contractType);
+
+            var body = JsonConvert.SerializeObject(MutationGenerator.GenerateMutation(mutation, Mutations.Mutations.CREATE_CONTRACT_OPERATION_NAME));
+            var httpContent = new StringContent(body, Encoding.UTF8, "application/json");
+
+            var response = await _graphQLHttpClient.PostAsync(GraphUri, httpContent);
+
+            if (!response.IsSuccessStatusCode)
+                throw new Exception(response.Content.ReadAsStringAsync().Result);
+
+            return;
         }
     }
 }

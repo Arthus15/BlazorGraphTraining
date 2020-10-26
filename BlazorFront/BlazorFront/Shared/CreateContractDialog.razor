@@ -1,4 +1,7 @@
-﻿<MatDialog @bind-IsOpen="@Opened">
+﻿@using Services
+@inject BackProxyService _backProxyService
+
+<MatDialog @bind-IsOpen="@Opened">
     <MatDialogTitle>Create new Contract</MatDialogTitle>
     <MatDialogContent>
         <MatTextField @bind-Value="@contractName"></MatTextField>
@@ -22,12 +25,15 @@
     [Parameter]
     public EventCallback<bool> OpenedChanged { get; set; }
 
-    string contractName = null;
-    string contractType = null;
+    private string contractName = null;
+    private string contractType = null;
 
 
-    void Create()
+    private async Task Create()
     {
-
+#if DEBUG
+        await Task.Delay(10000);
+#endif
+        await _backProxyService.CreateContractAsync(contractName, contractType);
     }
 }
