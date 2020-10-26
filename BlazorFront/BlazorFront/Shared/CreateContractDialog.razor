@@ -1,0 +1,33 @@
+﻿<MatDialog @bind-IsOpen="@Opened">
+    <MatDialogTitle>Create new Contract</MatDialogTitle>
+    <MatDialogContent>
+        <MatTextField @bind-Value="@contractName"></MatTextField>
+        <MatSelect @bind-Value="@contractType" Label="Contract Type">
+            <MatOptionString Value="Local">Local</MatOptionString>
+            <MatOptionString Value="International">International</MatOptionString>
+        </MatSelect>
+
+
+    </MatDialogContent>
+    <MatDialogActions>
+        <MatButton OnClick="@(e => { Opened = false; })">Cancel</MatButton>
+        <MatButton OnClick="@Create">Create</MatButton>
+    </MatDialogActions>
+</MatDialog>
+
+@code {
+    [Parameter]
+    public bool Opened { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> OpenedChanged { get; set; }
+
+    string contractName = null;
+    string contractType = null;
+
+
+    void Create()
+    {
+
+    }
+}

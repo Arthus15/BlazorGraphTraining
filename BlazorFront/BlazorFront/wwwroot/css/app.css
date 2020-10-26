@@ -181,4 +181,10 @@ app {
         /* Never collapse the sidebar for wide screens */
         display: block;
     }
+
+    .app-fab-absolute {
+        position: fixed;
+        bottom: 1rem;
+        right: 1rem;
+    }
 }

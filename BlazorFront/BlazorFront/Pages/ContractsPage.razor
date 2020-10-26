@@ -1,22 +1,27 @@
 ﻿@using Services
 @inject BackProxyService _backProxyService
 
-<MatTable Items="@contracts" class="mat-elevation-z5">
+
+<MatTable Items="@contracts" class="mat-elevation-z5" ShowPaging="true" UseSortHeaderRow="false">
     <MatTableHeader>
-        <th>Id</th>
-        <th>Name</th>
-        <th>ContractType</th>
+        <th style="width:35%;">Id</th>
+        <th style="width:65%;">Name</th>
+        <th style="width:30%;">Contract Type</th>
     </MatTableHeader>
     <MatTableRow>
-        <td>@context.Id</td>
-        <td>@context.Name</td>
-        <td>@context.ContractType</td>
+        <td style="width:35%;">@context.Id </td>
+        <td style="width:35%;">@context.Name</td>
+        <td style="width:30%;">@context.ContractType</td>
     </MatTableRow>
 </MatTable>
+
+<MatFAB Style="position: fixed; bottom: 1rem; right: 1rem;" Icon="add" OnClick="@OpenDialog" Raised="true"></MatFAB>
+<CreateContractDialog @bind-Opened="DialogOpened" />
 
 @code {
 
     public List<BlazorFront.Models.Contract> contracts;
+    public bool DialogOpened = false;
 
     protected override async Task OnInitializedAsync()
     {
@@ -25,4 +30,10 @@
 #endif
         contracts = await _backProxyService.GetContractsAsync();
     }
+
+    void OpenDialog()
+    {
+        DialogOpened = true;
+    }
+
 }
