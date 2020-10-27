@@ -1,7 +1,7 @@
 ﻿@using Services
-@inject BackProxyService _backProxyService
+@inject MutationService _mutationService
 
-<MatDialog @bind-IsOpen="@Opened">
+<MatDialog @bind-IsOpen="@Show">
     <MatDialogTitle>Modify Contract</MatDialogTitle>
     <MatDialogContent>        
         <MatTextField @bind-Value="@Contract.Name"></MatTextField>
@@ -11,7 +11,7 @@
         </MatSelect>
     </MatDialogContent>
     <MatDialogActions>
-        <MatButton OnClick="@(e => { Opened = false; })">Cancel</MatButton>
+        <MatButton OnClick="@(e => { Show = false; })">Cancel</MatButton>
         <MatButton OnClick="@Update">Update</MatButton>
         <MatButton OnClick="@Delete">Delete</MatButton>
     </MatDialogActions>
@@ -19,7 +19,7 @@
 
 @code {
     [Parameter]
-    public bool Opened { get; set; }
+    public bool Show { get; set; }
 
     [Parameter]
     public List<BlazorFront.Models.Contract> Contracts { get; set; }
@@ -33,7 +33,7 @@
     public EventCallback<BlazorFront.Models.Contract> ContractChanged { get; set; }
 
     [Parameter]
-    public EventCallback<bool> OpenedChanged { get; set; }
+    public EventCallback<bool> ShowChanged { get; set; }
 
 
     private async Task Update()
@@ -41,9 +41,16 @@
 #if DEBUG
         await Task.Delay(10000);
 #endif        
-        Opened = false;
+        var updatedContract = await _mutationService.UpdateContractAsync(Contract);
 
-        await OpenedChanged.InvokeAsync(Opened);
+        var oldContract = Contracts.First(x => x.Id == updatedContract.Id);
+
+        Contracts.Remove(oldContract);
+        Contracts.Add(updatedContract);
+
+        Show = false;
+
+        await ShowChanged.InvokeAsync(Show);
         await ContractsChanged.InvokeAsync(Contracts);
     }
 
@@ -51,13 +58,15 @@
     {
 #if DEBUG
         await Task.Delay(10000);
-#endif     
+#endif  
+        await _mutationService.DeleteContractAsync(Contract);
+
         var removeContract = Contracts.FirstOrDefault(x => x.Id == Contract.Id);
         Contracts.Remove(removeContract);
 
-        Opened = false;
+        Show = false;
 
-        await OpenedChanged.InvokeAsync(Opened);
+        await ShowChanged.InvokeAsync(Show);
         await ContractsChanged.InvokeAsync(Contracts);
     }
 }

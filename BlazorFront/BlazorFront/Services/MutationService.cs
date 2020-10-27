@@ -21,5 +21,21 @@ namespace BlazorFront.Services
 
             return await _proxyService.PostMutationAsync<Contract>(content, Mutations.Mutations.CREATE_CONTRACT_OPERATION_NAME);
         }
+
+        public async Task<Contract> UpdateContractAsync(Contract contract)
+        {
+            var mutation = string.Format(Mutations.Mutations.UPDATE_CONTRACT, contract.Id, contract.Name, contract.ContractType);
+            var content = JsonConvert.SerializeObject(MutationGenerator.GenerateMutation(mutation, Mutations.Mutations.UPDATE_CONTRACT_OPERATION_NAME));
+
+            return await _proxyService.PostMutationAsync<Contract>(content, Mutations.Mutations.UPDATE_CONTRACT_OPERATION_NAME);
+        }
+
+        public async Task<Contract> DeleteContractAsync(Contract contract)
+        {
+            var mutation = string.Format(Mutations.Mutations.DELETE_CONTRACT, contract.Id);
+            var content = JsonConvert.SerializeObject(MutationGenerator.GenerateMutation(mutation, Mutations.Mutations.DELETE_CONTRACT_OPERATION_NAME));
+
+            return await _proxyService.PostMutationAsync<Contract>(content, Mutations.Mutations.DELETE_CONTRACT_OPERATION_NAME);
+        }
     }
 }

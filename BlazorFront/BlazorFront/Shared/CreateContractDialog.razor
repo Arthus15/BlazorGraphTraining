@@ -11,7 +11,7 @@
         </MatSelect>
     </MatDialogContent>
     <MatDialogActions>
-        <MatButton OnClick="@(e => { Opened = false; })">Cancel</MatButton>
+        <MatButton OnClick="@CloseDialog">Cancel</MatButton>
         <MatButton OnClick="@Create">Create</MatButton>
     </MatDialogActions>
 </MatDialog>
@@ -41,8 +41,19 @@
         var contract = await _mutationService.CreateContractAsync(new Models.Contract() { Name = contractName, ContractType = contractType });
         Contracts.Add(contract);
         Opened = false;
+        contractName = null;
+        contractType = null;
 
         await OpenedChanged.InvokeAsync(Opened);
         await ContractsChanged.InvokeAsync(Contracts);
+    }
+
+    private async Task CloseDialog()
+    {
+        contractName = null;
+        contractType = null;
+        Opened = false;
+
+        await OpenedChanged.InvokeAsync(Opened);
     }
 }

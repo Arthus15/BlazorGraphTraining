@@ -17,7 +17,7 @@
 
 <MatFAB Style="position: fixed; bottom: 1rem; right: 1rem;" Icon="add" OnClick="@OpenDialog" Raised="true"></MatFAB>
 <CreateContractDialog @bind-Opened="DialogOpened" @bind-Contracts="contracts" />
-<UpdateDeleteContractDialog @bind-Opened="ModifyContractDialogOpen" @bind-Contracts="contracts" @bind-Contract="SelectedContract" />
+<UpdateDeleteContractDialog @bind-Show="ModifyContractDialogOpen" @bind-Contracts="contracts" @bind-Contract="SelectedContract" />
 
 @code {
 
