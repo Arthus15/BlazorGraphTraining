@@ -1,13 +1,9 @@
+using BlazorFront.Services;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Net.Http;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Text;
-using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using BlazorFront.Services;
 
 namespace BlazorFront
 {
@@ -20,6 +16,8 @@ namespace BlazorFront
 
             builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddScoped<BackProxyService>();
+            builder.Services.AddScoped<MutationService>();
+            builder.Services.AddScoped<QueryService>();
 
             await builder.Build().RunAsync();
         }

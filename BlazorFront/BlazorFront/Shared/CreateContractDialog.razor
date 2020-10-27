@@ -1,5 +1,5 @@
 ﻿@using Services
-@inject BackProxyService _backProxyService
+@inject MutationService _mutationService
 
 <MatDialog @bind-IsOpen="@Opened">
     <MatDialogTitle>Create new Contract</MatDialogTitle>
@@ -9,8 +9,6 @@
             <MatOptionString Value="Local">Local</MatOptionString>
             <MatOptionString Value="International">International</MatOptionString>
         </MatSelect>
-
-
     </MatDialogContent>
     <MatDialogActions>
         <MatButton OnClick="@(e => { Opened = false; })">Cancel</MatButton>
@@ -21,6 +19,12 @@
 @code {
     [Parameter]
     public bool Opened { get; set; }
+
+    [Parameter]
+    public List<BlazorFront.Models.Contract> Contracts { get; set; }
+
+    [Parameter]
+    public EventCallback<List<BlazorFront.Models.Contract>> ContractsChanged { get; set; }
 
     [Parameter]
     public EventCallback<bool> OpenedChanged { get; set; }
@@ -34,6 +38,11 @@
 #if DEBUG
         await Task.Delay(10000);
 #endif
-        await _backProxyService.CreateContractAsync(contractName, contractType);
+        var contract = await _mutationService.CreateContractAsync(new Models.Contract() { Name = contractName, ContractType = contractType });
+        Contracts.Add(contract);
+        Opened = false;
+
+        await OpenedChanged.InvokeAsync(Opened);
+        await ContractsChanged.InvokeAsync(Contracts);
     }
 }

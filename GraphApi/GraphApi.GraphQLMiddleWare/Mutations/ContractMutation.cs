@@ -19,6 +19,26 @@ namespace GraphApi.GraphQLMiddleWare.Mutations
                 var contract = context.GetArgument<Contract>("newContract");
                 return contractRepository.Create(contract);
             });
+
+            Field<ContractType>(
+            "UpdateContract",
+            arguments: new QueryArguments(
+                new QueryArgument<NonNullGraphType<ContractInputType>> { Name = "updateContract", Description = "Updates and existing contract" }),
+            resolve: context =>
+            {
+                var contract = context.GetArgument<Contract>("updateContract");
+                return contractRepository.Update(contract);
+            });
+
+            Field<ContractType>(
+            "DeleteContract",
+            arguments: new QueryArguments(
+                new QueryArgument<NonNullGraphType<ContractInputType>> { Name = "deleteContract", Description = "Deletes and existing contract" }),
+            resolve: context =>
+            {
+                var contract = context.GetArgument<Contract>("deleteContract");
+                return contractRepository.Delete(contract);
+            });
         }
     }
 }

@@ -1,0 +1,63 @@
+﻿@using Services
+@inject BackProxyService _backProxyService
+
+<MatDialog @bind-IsOpen="@Opened">
+    <MatDialogTitle>Modify Contract</MatDialogTitle>
+    <MatDialogContent>        
+        <MatTextField @bind-Value="@Contract.Name"></MatTextField>
+        <MatSelect @bind-Value="@Contract.ContractType" Label="Contract Type">
+            <MatOptionString Value="Local">Local</MatOptionString>
+            <MatOptionString Value="International">International</MatOptionString>
+        </MatSelect>
+    </MatDialogContent>
+    <MatDialogActions>
+        <MatButton OnClick="@(e => { Opened = false; })">Cancel</MatButton>
+        <MatButton OnClick="@Update">Update</MatButton>
+        <MatButton OnClick="@Delete">Delete</MatButton>
+    </MatDialogActions>
+</MatDialog>
+
+@code {
+    [Parameter]
+    public bool Opened { get; set; }
+
+    [Parameter]
+    public List<BlazorFront.Models.Contract> Contracts { get; set; }
+
+    [Parameter]
+    public BlazorFront.Models.Contract Contract { get; set; }
+
+    [Parameter]
+    public EventCallback<List<BlazorFront.Models.Contract>> ContractsChanged { get; set; }
+    [Parameter]
+    public EventCallback<BlazorFront.Models.Contract> ContractChanged { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> OpenedChanged { get; set; }
+
+
+    private async Task Update()
+    {
+#if DEBUG
+        await Task.Delay(10000);
+#endif        
+        Opened = false;
+
+        await OpenedChanged.InvokeAsync(Opened);
+        await ContractsChanged.InvokeAsync(Contracts);
+    }
+
+    private async Task Delete()
+    {
+#if DEBUG
+        await Task.Delay(10000);
+#endif     
+        var removeContract = Contracts.FirstOrDefault(x => x.Id == Contract.Id);
+        Contracts.Remove(removeContract);
+
+        Opened = false;
+
+        await OpenedChanged.InvokeAsync(Opened);
+        await ContractsChanged.InvokeAsync(Contracts);
+    }
+}
