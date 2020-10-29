@@ -28,9 +28,9 @@ namespace BlazorFront.Services
 
             var data = response.Content.ReadAsStringAsync().Result;
             var dataJObject = JObject.Parse(data).GetValue(char.ToLower(operationName[0]) + operationName.Substring(1));
-            var contracts = JsonConvert.DeserializeObject<T>(dataJObject.ToString());
+            var objects = JsonConvert.DeserializeObject<T>(dataJObject.ToString());
 
-            return contracts;
+            return objects;
         }
 
         public async Task<T> PostMutationAsync<T>(string content, string mutationName)

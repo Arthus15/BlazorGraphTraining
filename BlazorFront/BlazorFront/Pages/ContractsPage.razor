@@ -7,30 +7,37 @@
         <th style="width:35%;">Id</th>
         <th style="width:65%;">Name</th>
         <th style="width:30%;">Contract Type</th>
+        <th>Actions</th>
     </MatTableHeader>
     <MatTableRow>
         <td style="width:35%;">@context.Id </td>
         <td style="width:35%;">@context.Name</td>
         <td style="width:30%;">@context.ContractType</td>
+        <td><MatIconButton OnClick="@((e) => AddOperation(context.Id))" Icon="add"></MatIconButton> </td>
     </MatTableRow>
 </MatTable>
 
 <MatFAB Style="position: fixed; bottom: 1rem; right: 1rem;" Icon="add" OnClick="@OpenDialog" Raised="true"></MatFAB>
 <CreateContractDialog @bind-Opened="DialogOpened" @bind-Contracts="contracts" />
 <UpdateDeleteContractDialog @bind-Show="ModifyContractDialogOpen" @bind-Contracts="contracts" @bind-Contract="SelectedContract" />
+<AddOperationDialog @bind-OpenedDialog="OpenOperationDialog" @bind-ContractId="ContractId" />
+
 
 @code {
 
-    public List<BlazorFront.Models.Contract> contracts;
+    public List<BlazorFront.Models.Contract>
+    contracts;
     public bool DialogOpened = false;
     public bool ModifyContractDialogOpen = false;
+    public bool OpenOperationDialog = false;
     public BlazorFront.Models.Contract SelectedContract;
+    public string ContractId = "";
 
     protected override async Task OnInitializedAsync()
     {
         SelectedContract = new Models.Contract();
 #if DEBUG
-        await Task.Delay(10000);
+await Task.Delay(10000);
 #endif
         contracts = await _queryService.GetContractsAsync();
     }
@@ -49,5 +56,11 @@
             SelectedContract = contractSelected;
             ModifyContractDialogOpen = true;
         }
+    }
+
+    void AddOperation(Guid contractId)
+    {
+        ContractId = contractId.ToString();
+        OpenOperationDialog = true;
     }
 }

@@ -19,7 +19,7 @@ namespace GraphApi.GraphQLMiddleWare.Queries
             "Operations",
             resolve: context =>
             {
-                var operations = db.Operations.Include(x => x.Inspections);
+                var operations = db.Operations.Include(x => x.Contract).Include(x => x.Inspections);
                 return operations;
             });
 

@@ -10,5 +10,8 @@
 
         public const string DELETE_CONTRACT = "mutation DeleteContract{{deleteContract(deleteContract:{{ id: \"{0}\"}}){{id}}}}";
         public const string DELETE_CONTRACT_OPERATION_NAME = "DeleteContract";
+
+        public const string CREATE_OPERATION = "mutation CreateOperation{{createOperation(newOperation:{{ number: \"{0}\", contractId: \"{1}\"}}){{id number contractId}}}}";
+        public const string CREATE_OPERATION_OPERATION_NAME = "CreateOperation";
     }
 }

@@ -20,5 +20,12 @@ namespace BlazorFront.Services
 
             return await _proxyService.PostQueryAsync<List<Contract>>(content, "contracts");
         }
+
+        public async Task<List<Operation>> GetOperationsAsync()
+        {
+            var content = JsonConvert.SerializeObject(Queries.Queries.OperationsQuery);
+
+            return await _proxyService.PostQueryAsync<List<Operation>>(content, "operations");
+        }
     }
 }

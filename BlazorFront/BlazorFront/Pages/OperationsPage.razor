@@ -1,0 +1,51 @@
+﻿@using Services
+@inject QueryService _queryService
+
+
+<MatTable Items="@operations" class="mat-elevation-z5" ShowPaging="true" UseSortHeaderRow="false" OnRowDbClick="OnContractRowClicked" AllowSelection="true">
+    <MatTableHeader>
+        <th style="width:35%;">Id</th>
+        <th style="width:30%;">Number</th>
+        <th style="width:45%;">Contract</th>
+    </MatTableHeader>
+    <MatTableRow>
+        <td style="width:35%;">@context.Id </td>
+        <td style="width:30%;">@context.Number</td>
+        <td style="width:45%;">@context.contract.Name</td>
+    </MatTableRow>
+</MatTable>
+
+<MatFAB Style="position: fixed; bottom: 1rem; right: 1rem;" Icon="add" OnClick="@OpenDialog" Raised="true"></MatFAB>
+
+@code {
+
+    public List<BlazorFront.Models.Operation> operations;
+    public bool DialogOpened = false;
+    public bool ModifyContractDialogOpen = false;
+    public BlazorFront.Models.Operation SelectedOperation;
+
+    protected override async Task OnInitializedAsync()
+    {
+        SelectedOperation = new Models.Operation();
+#if DEBUG
+    await Task.Delay(10000);
+#endif
+        operations = await _queryService.GetOperationsAsync();
+    }
+
+    void OpenDialog()
+    {
+        DialogOpened = true;
+    }
+
+    void OnContractRowClicked(object contract)
+    {
+        var contractSelected = contract as BlazorFront.Models.Contract;
+
+        if (contractSelected != null)
+        {
+            //SelectedContract = contractSelected;
+            ModifyContractDialogOpen = true;
+        }
+    }
+}

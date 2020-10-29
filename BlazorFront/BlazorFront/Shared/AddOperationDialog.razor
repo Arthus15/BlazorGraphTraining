@@ -1,0 +1,52 @@
+﻿@using Services
+@inject MutationService _mutationService
+
+<MatDialog @bind-IsOpen="@OpenedDialog">
+    <MatDialogTitle>Create new Contract</MatDialogTitle>
+    <MatDialogContent>
+        <MatTextField @bind-Value="@ContractId" Disabled="true" Label="Contract Id"></MatTextField>
+        <MatTextField @bind-Value="@operationNumber" Label="Operation Number"></MatTextField>
+    </MatDialogContent>
+    <MatDialogActions>
+        <MatButton OnClick="@CloseDialog">Cancel</MatButton>
+        <MatButton OnClick="@Create">Create</MatButton>
+    </MatDialogActions>
+</MatDialog>
+
+@code {
+    [Parameter]
+    public bool OpenedDialog { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> OpenedDialogChanged { get; set; }
+
+    [Parameter]
+    public string ContractId { get; set; }
+
+    [Parameter]
+    public EventCallback<string> ContractIdChanged { get; set; }
+
+    private string operationNumber = null;
+
+
+    private async Task Create()
+    {
+#if DEBUG
+await Task.Delay(10000);
+#endif
+        await _mutationService.CreateOperationAsync(new Models.Operation() { Number = operationNumber, ContractId = Guid.Parse(ContractId) });
+
+        OpenedDialog = false;
+        operationNumber = null;
+
+        await OpenedDialogChanged.InvokeAsync(OpenedDialog);
+    }
+
+    private async Task CloseDialog()
+    {
+        operationNumber = null;
+        OpenedDialog = false;
+
+        await OpenedDialogChanged.InvokeAsync(OpenedDialog);
+    }
+}
