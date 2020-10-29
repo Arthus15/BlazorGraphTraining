@@ -1,32 +1,31 @@
 ﻿@using Services
 @inject QueryService _queryService
+@inject MutationService _mutationService
 
 
 <MatTable Items="@contracts" class="mat-elevation-z5" ShowPaging="true" UseSortHeaderRow="false" OnRowDbClick="OnContractRowClicked" AllowSelection="true">
     <MatTableHeader>
-        <th style="width:35%;">Id</th>
-        <th style="width:65%;">Name</th>
+        <th style="width:30%;">Id</th>
+        <th style="width:30%;">Name</th>
         <th style="width:30%;">Contract Type</th>
-        <th>Actions</th>
+        <th style="width:1000px;">Actions</th>
     </MatTableHeader>
     <MatTableRow>
-        <td style="width:35%;">@context.Id </td>
-        <td style="width:35%;">@context.Name</td>
+        <td style="width:30%;">@context.Id </td>
+        <td style="width:30%;">@context.Name</td>
         <td style="width:30%;">@context.ContractType</td>
-        <td><MatIconButton OnClick="@((e) => AddOperation(context.Id))" Icon="add"></MatIconButton> </td>
+        <td style="width:1000px;"><MatIconButton OnClick="@((e) => AddOperation(context.Id))" Icon="add"></MatIconButton> <MatIconButton OnClick="@((e) => Delete(context.Id))" Icon="delete"></MatIconButton> </td>
     </MatTableRow>
 </MatTable>
 
 <MatFAB Style="position: fixed; bottom: 1rem; right: 1rem;" Icon="add" OnClick="@OpenDialog" Raised="true"></MatFAB>
 <CreateContractDialog @bind-Opened="DialogOpened" @bind-Contracts="contracts" />
-<UpdateDeleteContractDialog @bind-Show="ModifyContractDialogOpen" @bind-Contracts="contracts" @bind-Contract="SelectedContract" />
+<UpdateContractDialog @bind-Show="ModifyContractDialogOpen" @bind-Contracts="contracts" @bind-Contract="SelectedContract" />
 <AddOperationDialog @bind-OpenedDialog="OpenOperationDialog" @bind-ContractId="ContractId" />
-
 
 @code {
 
-    public List<BlazorFront.Models.Contract>
-    contracts;
+    public List<BlazorFront.Models.Contract> contracts;
     public bool DialogOpened = false;
     public bool ModifyContractDialogOpen = false;
     public bool OpenOperationDialog = false;
@@ -62,5 +61,17 @@ await Task.Delay(10000);
     {
         ContractId = contractId.ToString();
         OpenOperationDialog = true;
+    }
+
+    private async Task Delete(Guid contractId)
+    {
+#if DEBUG
+    await Task.Delay(10000);
+#endif
+
+        await _mutationService.DeleteContractAsync(new Models.Contract() { Id = contractId });
+
+        var removeContract = contracts.FirstOrDefault(x => x.Id == contractId);
+        contracts.Remove(removeContract);
     }
 }

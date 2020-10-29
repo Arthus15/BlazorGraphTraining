@@ -6,7 +6,7 @@ else
 {
 <div style="display:flex; flex-direction: column; align-items: center; width: 100%">
     <img src="/Images/Cotecna-loading.jpg" asp-append-version="true" style="max-width: 400px; max-height:400px;" />
-    <MatProgressBar Indeterminate="true" Style="width: 50%;" ></MatProgressBar>
+    <MatProgressBar Progress="@progress" Style="width: 50%;" ></MatProgressBar>
 </div>    
 }
 
@@ -16,9 +16,17 @@ else
     [Parameter]
     public RenderFragment ChildContent { get; set; }
 
+    public double progress = 0;
+
     protected override async Task OnInitializedAsync()
     {
-        await Task.Delay(1500);
+        while(progress <= 1)
+        {
+            progress += 0.1;
+            this.StateHasChanged();
+            await Task.Delay(100);
+        }
+
         isLoaded = true;
     }
 }

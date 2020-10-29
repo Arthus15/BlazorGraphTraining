@@ -13,7 +13,6 @@
     <MatDialogActions>
         <MatButton OnClick="@CloseDialog">Cancel</MatButton>
         <MatButton OnClick="@Update">Update</MatButton>
-        <MatButton OnClick="@Delete">Delete</MatButton>
     </MatDialogActions>
 </MatDialog>
 
@@ -47,22 +46,6 @@
 
         Contracts.Remove(oldContract);
         Contracts.Add(updatedContract);
-
-        Show = false;
-
-        await ShowChanged.InvokeAsync(Show);
-        await ContractsChanged.InvokeAsync(Contracts);
-    }
-
-    private async Task Delete()
-    {
-#if DEBUG
-        await Task.Delay(10000);
-#endif  
-        await _mutationService.DeleteContractAsync(Contract);
-
-        var removeContract = Contracts.FirstOrDefault(x => x.Id == Contract.Id);
-        Contracts.Remove(removeContract);
 
         Show = false;
 
