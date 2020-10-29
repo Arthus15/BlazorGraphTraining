@@ -1,0 +1,24 @@
+﻿@if (isLoaded)
+{
+    @ChildContent
+}
+else
+{
+<div style="display:flex; flex-direction: column; align-items: center; width: 100%">
+    <img src="/Images/Cotecna-loading.jpg" asp-append-version="true" style="max-width: 400px; max-height:400px;" />
+    <MatProgressBar Indeterminate="true" Style="width: 50%;" ></MatProgressBar>
+</div>    
+}
+
+@code {
+    bool isLoaded;
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(1500);
+        isLoaded = true;
+    }
+}

@@ -2,7 +2,7 @@
 @inject QueryService _queryService
 
 
-<MatTable Items="@operations" class="mat-elevation-z5" ShowPaging="true" UseSortHeaderRow="false" OnRowDbClick="OnContractRowClicked" AllowSelection="true">
+<MatTable Items="@operations" class="mat-elevation-z5" ShowPaging="true" UseSortHeaderRow="false"  AllowSelection="false">
     <MatTableHeader>
         <th style="width:35%;">Id</th>
         <th style="width:65%;">Number</th>
@@ -14,8 +14,6 @@
         <td style="width:30%;">@context.contract.Name</td>
     </MatTableRow>
 </MatTable>
-
-<MatFAB Style="position: fixed; bottom: 1rem; right: 1rem;" Icon="add" OnClick="@OpenDialog" Raised="true"></MatFAB>
 
 @code {
 
@@ -36,16 +34,5 @@
     void OpenDialog()
     {
         DialogOpened = true;
-    }
-
-    void OnContractRowClicked(object contract)
-    {
-        var contractSelected = contract as BlazorFront.Models.Contract;
-
-        if (contractSelected != null)
-        {
-            //SelectedContract = contractSelected;
-            ModifyContractDialogOpen = true;
-        }
     }
 }
