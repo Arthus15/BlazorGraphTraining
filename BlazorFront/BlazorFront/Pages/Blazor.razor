@@ -1,5 +1,48 @@
 ﻿@page "/blazor"
-<h3>Blazor</h3>
+
+<br />
+
+<img src="/Images/blazor.png" asp-append-version="true" style="max-width: 400px; max-height:400px;"/>
+
+<br />
+
+<div style="width: 80%">
+    <MatAccordion Multi="true">
+        <MatExpansionPanel>
+            <MatExpansionPanelSummary>
+                <MatExpansionPanelHeader>Introduction</MatExpansionPanelHeader>
+            </MatExpansionPanelSummary>
+            <MatExpansionPanelDetails>
+                <p>Blazor is a free and open-source web framework that enables developers to create web apps using C# and HTML.</p>
+                <p>
+                    One of the main interesting aspect of Blazor is that the developer doesn't need to know JavaScript, why? because blazor is written directly into WebAssembly,
+                    this means that the processing is enterely done on the client size.
+                </p>
+            </MatExpansionPanelDetails>
+        </MatExpansionPanel>
+        <MatExpansionPanel>
+            <MatExpansionPanelSummary>
+                <MatExpansionPanelHeader>Blazor Editions</MatExpansionPanelHeader>
+            </MatExpansionPanelSummary>
+            <MatExpansionPanelDetails>
+                <p>Blazor has, by the moment, two different types:</p>
+                <ul>
+                    <li><b>Blazor Server</b>: This type is hosted on the server which means that the conversion is done on the server and not in the client. The client just download a small page and updates its UI using SignalR.</li>
+                    <li><b>Blazor WebAssembly</b>: As mention before, in this type the application is fully process by the client size. This app type has a rapid responde type and is the one used in this training.</li>
+                </ul>
+            </MatExpansionPanelDetails>
+        </MatExpansionPanel>
+        <MatExpansionPanel>
+            <MatExpansionPanelSummary>
+                <MatExpansionPanelHeader>CSS Frameworks</MatExpansionPanelHeader>
+            </MatExpansionPanelSummary>
+            <MatExpansionPanelDetails>
+                <p>As other Web oriented lenguajes blazor also has some CSS frameworks that make it easier to build and app. </p>
+                <p>For this training I'm using <b>MatBlazor</b> which is basically an adaptation of Angular Material but is not sopported by Google.</p>
+            </MatExpansionPanelDetails>
+        </MatExpansionPanel>
+    </MatAccordion>
+</div>
 
 @code {
 

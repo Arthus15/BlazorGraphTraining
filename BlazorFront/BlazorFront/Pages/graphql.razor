@@ -1,5 +1,55 @@
 ﻿@page "/graphql"
-<h3>GraphQL</h3>
+<br />
+
+<img src="/Images/GraphQL_Logo.svg.png" asp-append-version="true" style="max-width: 400px; max-height:400px;" />
+
+<br />
+
+<div style="width: 80%">
+    <MatAccordion Multi="true">
+        <MatExpansionPanel>
+            <MatExpansionPanelSummary>
+                <MatExpansionPanelHeader>Introduction</MatExpansionPanelHeader>
+            </MatExpansionPanelSummary>
+            <MatExpansionPanelDetails>
+                <p>GraphQL is a query language for APIs and a runtime for fulfilling those queries with your existing data.</p>                
+            </MatExpansionPanelDetails>
+        </MatExpansionPanel>
+        <MatExpansionPanel>
+            <MatExpansionPanelSummary>
+                <MatExpansionPanelHeader>Queries</MatExpansionPanelHeader>
+            </MatExpansionPanelSummary>
+            <MatExpansionPanelDetails>
+                <p>GraphQL queries are used to retrieve data from the server. You can modify the retrieve data so you just get what you need to use.</p>
+                <br />
+                <p><b>Query example: </b></p>
+                <pre class="language-graphql">query contracts{
+  contracts{
+    id
+    name
+  }</pre>
+            </MatExpansionPanelDetails>
+        </MatExpansionPanel>
+        <MatExpansionPanel>
+            <MatExpansionPanelSummary>
+                <MatExpansionPanelHeader>Mutations</MatExpansionPanelHeader>
+            </MatExpansionPanelSummary>
+            <MatExpansionPanelDetails>
+                <p>Mutations are like queries but mutations are used for insert, modify or delete data.</p>
+                <p>Also you can send the variables using the variable property of the graphQL request instead of adding directly in the mutation as you can see in the following example</p>
+                <br />
+                <p><b>Mutation example:</b></p>
+                <pre>mutation CreateContract{
+  createContract(newContract:{name: "Example", contractType: "Local"}){
+    id
+    name
+    contractType
+  }
+}</pre>
+            </MatExpansionPanelDetails>
+        </MatExpansionPanel>
+    </MatAccordion>
+</div>
 
 @code {
 
