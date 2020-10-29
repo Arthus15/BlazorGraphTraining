@@ -11,7 +11,7 @@
         </MatSelect>
     </MatDialogContent>
     <MatDialogActions>
-        <MatButton OnClick="@(e => { Show = false; })">Cancel</MatButton>
+        <MatButton OnClick="@CloseDialog">Cancel</MatButton>
         <MatButton OnClick="@Update">Update</MatButton>
         <MatButton OnClick="@Delete">Delete</MatButton>
     </MatDialogActions>
@@ -68,5 +68,11 @@
 
         await ShowChanged.InvokeAsync(Show);
         await ContractsChanged.InvokeAsync(Contracts);
+    }
+
+    private async Task CloseDialog()
+    {
+        Show = false;
+        await ShowChanged.InvokeAsync(Show);
     }
 }

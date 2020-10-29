@@ -1,5 +1,19 @@
 ﻿@inherits LayoutComponentBase
 
-<AppBar>
-    @Body
-</AppBar>
+<MatThemeProvider Theme="@theme1">
+    <AppBar>
+        @Body
+    </AppBar>
+</MatThemeProvider>
+
+@code
+        {
+
+    MatTheme theme1 = new MatTheme()
+    {
+        Primary = "#000087",
+        Secondary = "#00ae69"
+    };
+
+}
+
